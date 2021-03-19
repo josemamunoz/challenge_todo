@@ -1,55 +1,18 @@
-import React, { useState, useEffect } from "react";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bulma/css/bulma.css"
+
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function App() {
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([]);
-
-
-  useEffect(() => {
-
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/nuevousuario", {
-      method: "POST",
-      body: JSON.stringify([]),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => {
-        console.log(resp);
-        return resp.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-  }, []);
-
-  useEffect(() => {
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/nuevousuario", {
-      method: "PUT",
-      body: JSON.stringify(
-        todos.map((label) => {
-          return { label: label, done: false };
-        })
-      ),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-
-  }, [todos]);
+  const [allitems, setAllitems] = useState("");
+  const [activeItems, setActiveItems] = useState("");
+  const [completedItems, setCompletedItems] = useState("");
+  const [checkedItems, setCheckeditems] = useState([]);
 
   function clearAll() {
-
+    setTodos([])
   }
 
   function handleNewTodoChange(e) {
@@ -63,12 +26,16 @@ function App() {
     e.preventDefault();
     if (newTodo === "")
       return
-    setTodos([...todos, { id: Date.now(), text: newTodo },]);
+    setTodos([...todos, { id: Date.now(), tarea: newTodo},]);
     //setTodos(todos.concat(newTodo)); //otra forma de obtener los todos
-
     setNewTodo("");
     e.target.reset();
-
+  }
+  function hamdleCheck(e){
+    
+  }
+  function handleChecked(e){
+    setCheckeditems([...checkedItems, {checked: e.target.checked}])
   }
 
   //funcion que elimina las tareas
@@ -77,68 +44,73 @@ function App() {
   }
 
 
+
   return (
-    <div className="container is-fluid">
+    <div className="container">
 
       {/* titulo y contador del numero de tareas */}
 
-      <div className="level-item has-text-centered">
+      <div className="header">
         <div className="titulo">
-          <p className="title">To do</p>
-          <p className="heading">Count: {todos.length}</p>
+          <h1 className="title">To do</h1>
+        {/*   <p className="heading">Count: {todos.length}</p> */}
         </div>
       </div>
 
        {/* tabs para cambiar de pagina */}
 
-        <div className="tabs is-medium is-centered">
-          <ul>
-            <li class="is-active"><a>All</a></li>
-            <li><a>Active</a></li>
-            <li><a>Completed</a></li>
+        <nav className="tabs">
+          <ul className="tabsLista">
+            <li><button className={"tabsItems " + allitems} onClick={()=> (setAllitems("active"), setActiveItems(""), setCompletedItems(""))}>All</button></li>
+            <li><button className={"tabsItems " + activeItems} onClick={()=> (setAllitems(""), setActiveItems("active"), setCompletedItems(""))}>Active</button></li>
+            <li><button className={"tabsItems " + completedItems} onClick={()=> (setAllitems(""), setActiveItems(""), setCompletedItems("active"))}>Completed</button></li>
           </ul>
-        </div>
+        </nav>
 
         {/* input para agregar tareas*/}
 
         <div className="container1">
-          <div className="field is-grouped">
-            <form onSubmit={handleNewTodo}>
-              <input type="text" className="input is-normal"
-                placeholder={
-                  todos.length === 0
-                    ? "No task, rest day!!"
-                    : "Add a task"
-                }
-                onChange={handleNewTodoChange}
-              >
-
-              </input> 
-            </form>
-            <button type="button" className="button is-info" onClick={clearAll}>Add</button>
+          <div className="grupo1">
+            <div className="leftside">
+              <form className="formulario1" onSubmit={handleNewTodo}>
+                <input type="text" className="inputNormal"
+                  placeholder={
+                    todos.length === 0
+                      ? "No task yet!!"
+                      : "Add details"
+                  }
+                  onChange={handleNewTodoChange}
+                >
+                </input> 
+              </form>
+            </div>
+            <div className="rightside">
+              <button type="button" className="button1" onClick={clearAll}>Add</button>
+            </div>
+            
         </div>
         
         {/* lista de tareas*/}
 
-        <ul className="list-group" >
+        <ul className="listGroup" >
           {todos.map((todo) => (
             <li className="lista" key={todo.id}>
-              <label className="checkbox">
-                <input type="checkbox"/>
+              <label className="containerCheck">
+                <input type="checkbox" onChange={(e) =>(handleChecked(e)) /* console.log(e.target.checked) */}></input>
+                <span class="checkmark"></span>
               </label>
-                    {todo.text}
-                    <button
-                      type="button"
-                      className="close"
-                      aria-label="Close"
-                      onClick={() => removeTodo(todo.id)}
-                    >
-                      <i className="far fa-trash-alt"></i>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-        <button type="button" className="button is-danger" onClick={clearAll}><i className="far fa-trash-alt"></i> Delete all</button>
+              <text className="itemdelista">{todo.tarea}</text>
+              <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+              <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="botonDelete">
+          <button type="button" className="buttonDanger" onClick={clearAll}>
+          <svg className="deleteAllIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+            Delete all</button>
+        </div>
           </div>
         </div>
   );
