@@ -4,15 +4,28 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function App() {
+
+  
+
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [allitems, setAllitems] = useState("");
   const [activeItems, setActiveItems] = useState("");
   const [completedItems, setCompletedItems] = useState("");
-  const [checkedItems, setCheckeditems] = useState([]);
+ /*  const [checkedItems, setCheckeditems] = useState([]); */
+
+  useEffect(() => {
+    
+    consultarTodos()
+
+  }, [todos])
 
   function clearAll() {
     setTodos([])
+  }
+
+  function consultarTodos(){
+    console.log(todos)
   }
 
   function handleNewTodoChange(e) {
@@ -26,17 +39,24 @@ function App() {
     e.preventDefault();
     if (newTodo === "")
       return
-    setTodos([...todos, { id: Date.now(), tarea: newTodo},]);
+    setTodos([...todos, { id: Date.now(), tarea: newTodo, completed: false}]);
     //setTodos(todos.concat(newTodo)); //otra forma de obtener los todos
     setNewTodo("");
     e.target.reset();
   }
-  function hamdleCheck(e){
+  /* function hamdleCheck(e){
     
-  }
-  function handleChecked(e){
-    setCheckeditems([...checkedItems, {checked: e.target.checked}])
-  }
+  } */
+  /* function handleChecked(e, todos){
+    if(e.target.checked === false){
+      setCheckeditems([...checkedItems, {tarea: todos.todo.tarea, completed: e.target.checked}])
+      console.log("checked = true")
+
+    } else{
+      setCheckeditems([...checkedItems, {tarea: todos.todo.tarea, completed: e.target.checked}])
+      console.log("checked = false")
+    }
+  } */
 
   //funcion que elimina las tareas
   function removeTodo(id) {
@@ -85,7 +105,7 @@ function App() {
               </form>
             </div>
             <div className="rightside">
-              <button type="button" className="button1" onClick={clearAll}>Add</button>
+              <button type="button" className="button1" onClick={handleNewTodo}>Add</button>
             </div>
             
         </div>
@@ -96,7 +116,20 @@ function App() {
           {todos.map((todo) => (
             <li className="lista" key={todo.id}>
               <label className="containerCheck">
-                <input type="checkbox" onChange={(e) =>(handleChecked(e)) /* console.log(e.target.checked) */}></input>
+                <input type="checkbox" onChange={(e) =>(
+                  /* handleChecked(e), */ 
+                  /* console.log(e.target.checked),
+                  console.log(todos.indexOf(todo)), 
+                  console.log("este es el el estado: "+todo.completed), 
+                  e.target.checked === true ? */
+                  /* setCheckeditems([...checkedItems, {tarea: todo.tarea, completed: e.target.checked}]) */
+                  /* (todos.todo[todos.indexOf(todo)].completed = e.target.checked) */
+                  /* console.log("cuando es true: "+todos[todos.indexOf(todo)].completed) */
+                  (todos[todos.indexOf(todo)].completed = e.target.checked),
+                  consultarTodos()
+                  /* : console.log("esto es cuando es falso: " + todo) */
+                  /* (todos.todo[todos.indexOf(todo)].completed = e.target.checked) */
+                  ) /* console.log(e.target.checked) */}></input>
                 <span class="checkmark"></span>
               </label>
               <text className="itemdelista">{todo.tarea}</text>
