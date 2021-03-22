@@ -18,10 +18,9 @@ h1{
   flex-direction: row;
   justify-content: center;
   font-family: Montserrat;
-
   width: 40vw;
 }
-.tabsItems{
+.all{
   padding: 10px; 
   width: 20vw; 
   text-align: center;
@@ -33,11 +32,42 @@ h1{
   border-bottom: solid 1px black;
 }
 .active{
+  padding: 10px; 
+  width: 20vw; 
+  text-align: center;
+  background-color: white; /* Blue background */
+  border: none; /* Remove borders */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer;
+  outline: none;
+  border-bottom: solid 1px black;
+}
+.completed{
+  padding: 10px; 
+  width: 20vw; 
+  text-align: center;
+  background-color: white; /* Blue background */
+  border: none; /* Remove borders */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer;
+  outline: none;
+  border-bottom: solid 1px black;
+}
+.all-activeTab, .active-activeTab, .completed-activeTab{
+  padding: 10px; 
+  width: 20vw; 
+  text-align: center;
+  background-color: white; /* Blue background */
+  border: none; /* Remove borders */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer;
+  outline: none;
   font-weight: bold;
   color: #2F80ED;
   border-bottom: solid 3px #2F80ED;
 }
-.tabsItems:hover{
+
+.all:hover, .active:hover, .completed:hover{
   color: #2F80ED;
   border-bottom: solid 2px #2F80ED;
   cursor: pointer;
@@ -45,6 +75,14 @@ h1{
 
 .lista{
   display: flex;
+}
+.lista-active{
+  display: flex;
+}
+.lista-completed{
+  display: flex;
+  text-decoration: line-through;
+  color: #000000;
 }
 .itemdelista{
   font-family: Montserrat;

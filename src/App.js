@@ -9,23 +9,19 @@ function App() {
 
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([]);
-  const [allitems, setAllitems] = useState("");
+  const [allitems, setAllitems] = useState("all");
   const [activeItems, setActiveItems] = useState("");
   const [completedItems, setCompletedItems] = useState("");
- /*  const [checkedItems, setCheckeditems] = useState([]); */
+  const [changeItems, setChangeItems] = useState([]);
 
   useEffect(() => {
     
-    consultarTodos()
+    getTodos()
 
-  }, [todos])
+  }, [changeItems])
 
   function clearAll() {
     setTodos([])
-  }
-
-  function consultarTodos(){
-    console.log(todos)
   }
 
   function handleNewTodoChange(e) {
@@ -43,27 +39,104 @@ function App() {
     //setTodos(todos.concat(newTodo)); //otra forma de obtener los todos
     setNewTodo("");
     e.target.reset();
+    saveLocalTodos(todos);
   }
-  /* function hamdleCheck(e){
-    
-  } */
-  /* function handleChecked(e, todos){
-    if(e.target.checked === false){
-      setCheckeditems([...checkedItems, {tarea: todos.todo.tarea, completed: e.target.checked}])
-      console.log("checked = true")
 
-    } else{
-      setCheckeditems([...checkedItems, {tarea: todos.todo.tarea, completed: e.target.checked}])
-      console.log("checked = false")
-    }
-  } */
+  //funcion que muestra las tareas filtradas por: all, active o completed
+
+  function changeState(){
+    setChangeItems([])
+  }
 
   //funcion que elimina las tareas
   function removeTodo(id) {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
+  function saveLocalTodos(todo){
+    let todos;
+    if(localStorage.getItem("todos") === null){
+      todos = [];
+      console.log(todo);
+    }else {
+      todos = JSON.parse(localStorage.getItem("todos"));
+      console.log(todo);
+    }
+    todos.push(todo);
+    localStorage.setItem("todos", JSON.stringify(todos));
 
+  }
+
+  function getTodos(){
+    let todos;
+    if(localStorage.getItem("todos") === null){
+      todos = [];
+    }else {
+      todos = JSON.parse(localStorage.getItem("todos"));
+    }
+  /*   todos.push(todo); */
+    localStorage.setItem("todos", JSON.stringify(todos));
+    
+    todos.forEach(function(todo){
+      {completedItems === "completed" ?
+        <>
+          <ul className="listGroup" >
+            {todos.map((todo) => (
+              <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "flex" : "none" }}>
+                <label className="containerCheck">
+                  <input type="checkbox" onChange={(e) =>(
+                    (todos[todos.indexOf(todo)].completed = e.target.checked)
+                    ) } ></input>
+                  <span class="checkmark"></span>
+                </label>
+                <text className={"itemdelista"}>{todo.tarea}</text>
+                <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="botonDelete">
+          <button type="button" className="buttonDanger" onClick={clearAll}>
+          <svg className="deleteAllIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+            Delete all</button>
+        </div>
+        </> 
+          
+          : 
+          activeItems === "active" ? 
+          <ul className="listGroup" >
+          {todos.map((todo) => (
+            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
+              <label className="containerCheck">
+                <input type="checkbox" onChange={(e) =>(
+                  (todos[todos.indexOf(todo)].completed = e.target.checked)
+                  ) }></input>
+                <span class="checkmark"></span>
+              </label>
+              <text className={"itemdelista"}>{todo.tarea}</text>
+            </li>
+          ))}
+        </ul>
+          :
+          <ul className="listGroup" >
+          {todos.map((todo) => (
+            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
+              <label className="containerCheck">
+                <input type="checkbox" onChange={(e) =>(
+                  (todos[todos.indexOf(todo)].completed = e.target.checked)
+                  ) }></input>
+                <span class="checkmark"></span>
+              </label>
+              <text className={"itemdelista"}>{todo.tarea}</text>
+            </li>
+          ))}
+        </ul>
+         
+
+        }
+    })
+  }
 
   return (
     <div className="container">
@@ -81,9 +154,9 @@ function App() {
 
         <nav className="tabs">
           <ul className="tabsLista">
-            <li><button className={"tabsItems " + allitems} onClick={()=> (setAllitems("active"), setActiveItems(""), setCompletedItems(""))}>All</button></li>
-            <li><button className={"tabsItems " + activeItems} onClick={()=> (setAllitems(""), setActiveItems("active"), setCompletedItems(""))}>Active</button></li>
-            <li><button className={"tabsItems " + completedItems} onClick={()=> (setAllitems(""), setActiveItems(""), setCompletedItems("active"))}>Completed</button></li>
+            <li><button className={"all " + allitems} onClick={()=> (setAllitems("all"), setActiveItems(""), setCompletedItems(""))}>All</button></li>
+            <li><button className={"active " + activeItems} onClick={()=> (setAllitems(""), setActiveItems("active"), setCompletedItems(""))}>Active</button></li>
+            <li><button className={"completed " + completedItems} onClick={()=> (setAllitems(""), setActiveItems(""), setCompletedItems("completed"))}>Completed</button></li>
           </ul>
         </nav>
 
@@ -93,15 +166,7 @@ function App() {
           <div className="grupo1">
             <div className="leftside">
               <form className="formulario1" onSubmit={handleNewTodo}>
-                <input type="text" className="inputNormal"
-                  placeholder={
-                    todos.length === 0
-                      ? "No task yet!!"
-                      : "Add details"
-                  }
-                  onChange={handleNewTodoChange}
-                >
-                </input> 
+                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
               </form>
             </div>
             <div className="rightside">
@@ -111,39 +176,65 @@ function App() {
         </div>
         
         {/* lista de tareas*/}
-
-        <ul className="listGroup" >
-          {todos.map((todo) => (
-            <li className="lista" key={todo.id}>
-              <label className="containerCheck">
-                <input type="checkbox" onChange={(e) =>(
-                  /* handleChecked(e), */ 
-                  /* console.log(e.target.checked),
-                  console.log(todos.indexOf(todo)), 
-                  console.log("este es el el estado: "+todo.completed), 
-                  e.target.checked === true ? */
-                  /* setCheckeditems([...checkedItems, {tarea: todo.tarea, completed: e.target.checked}]) */
-                  /* (todos.todo[todos.indexOf(todo)].completed = e.target.checked) */
-                  /* console.log("cuando es true: "+todos[todos.indexOf(todo)].completed) */
-                  (todos[todos.indexOf(todo)].completed = e.target.checked),
-                  consultarTodos()
-                  /* : console.log("esto es cuando es falso: " + todo) */
-                  /* (todos.todo[todos.indexOf(todo)].completed = e.target.checked) */
-                  ) /* console.log(e.target.checked) */}></input>
-                <span class="checkmark"></span>
-              </label>
-              <text className="itemdelista">{todo.tarea}</text>
-              <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
-              <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="botonDelete">
+        {
+        completedItems === "completed" ?
+        <>
+          <ul className="listGroup" >
+            {todos.map((todo) => (
+              <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "flex" : "none" }}>
+                <label className="containerCheck">
+                  <input type="checkbox" onChange={(e) =>(
+                    (todos[todos.indexOf(todo)].completed = e.target.checked)
+                    ) } checked={todo.completed ? true : false}></input>
+                  <span class="checkmark"></span>
+                </label>
+                <text className={"itemdelista"}>{todo.tarea}</text>
+                <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="botonDelete">
           <button type="button" className="buttonDanger" onClick={clearAll}>
           <svg className="deleteAllIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
             Delete all</button>
         </div>
+        </> 
+          
+          : 
+          activeItems === "active" ? 
+          <ul className="listGroup" >
+          {todos.map((todo) => (
+            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
+              <label className="containerCheck">
+                <input type="checkbox" onChange={(e) =>(
+                  (todos[todos.indexOf(todo)].completed = e.target.checked)
+                  ) } checked={todo.completed ? true : false}></input>
+                <span class="checkmark"></span>
+              </label>
+              <text className={"itemdelista"}>{todo.tarea}</text>
+            </li>
+          ))}
+        </ul>
+          :
+          <ul className="listGroup" >
+          {todos.map((todo) => (
+            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
+              <label className="containerCheck">
+                <input type="checkbox" onChange={(e) =>(
+                  (todos[todos.indexOf(todo)].completed = e.target.checked)
+                  ) } checked={todo.completed ? true : false}></input>
+                <span class="checkmark"></span>
+              </label>
+              <text className={"itemdelista"}>{todo.tarea}</text>
+            </li>
+          ))}
+        </ul>
+         
+
+        }
+        
           </div>
         </div>
   );
