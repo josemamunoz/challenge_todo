@@ -153,17 +153,7 @@ function App() {
         {/* input para agregar tareas*/}
 
         <div className="container1">
-          <div className="grupo1">
-            <div className="leftside">
-              <form className="formulario1" onSubmit={handleNewTodo} id="formulario1">
-                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
-              </form>
-            </div>
-            <div className="rightside">
-              <button type="submit" className="button1" form="formulario1">Add</button>
-            </div>
-            
-        </div>
+          
         
         {/* lista de tareas*/}
         {
@@ -194,6 +184,18 @@ function App() {
           
           : 
           activeItems === "active" ? 
+          <>
+          <div className="grupo1">
+            <div className="leftside">
+              <form className="formulario1" onSubmit={handleNewTodo} id="formulario1">
+                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
+              </form>
+            </div>
+            <div className="rightside">
+              <button type="submit" className="button1" form="formulario1">Add</button>
+            </div>
+            
+        </div>
           <ul className="listGroup" >
           {todos.map((todo) => (
             <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
@@ -207,7 +209,20 @@ function App() {
             </li>
           ))}
         </ul>
+        </>
           :
+          <>
+          <div className="grupo1">
+            <div className="leftside">
+              <form className="formulario1" onSubmit={handleNewTodo} id="formulario1">
+                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
+              </form>
+            </div>
+            <div className="rightside">
+              <button type="submit" className="button1" form="formulario1">Add</button>
+            </div>
+            
+        </div>
           <ul className="listGroup" >
           {todos.map((todo) => (
             <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
@@ -221,7 +236,7 @@ function App() {
             </li>
           ))}
         </ul>
-         
+         </>
 
         }
         
