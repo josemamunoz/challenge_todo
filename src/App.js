@@ -11,6 +11,11 @@ function App() {
   const [completedItems, setCompletedItems] = useState("");
   const [changeItems, setChangeItems] = useState([]);
 
+  //Iconos:
+  const addIcon = <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>;
+  const removeIcon = <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13H5v-2h14v2z"/></svg>;
+
+
   
   function clearAll(e) {
     e.preventDefault();
@@ -126,27 +131,24 @@ function App() {
   return (
     <>
     <div className="container">
-
-      {/* titulo y contador del numero de tareas */}
-
-      <div className="header">
-        <div className="titulo">
-          <h1 className="title">Todo List</h1>
+        <div className="title">
+          <h1>Todo List</h1>
         </div>
-      </div>
-
-       {/* tabs para cambiar de pagina */}
 
         <nav className="tabs">
           <ul className="tabsLista">
-            <li>
+            <li className="list-tab-element">
               <button className={"all " + allitems} onClick={()=> showAll()}>All</button>
               <span className={todos.length> 0 ? "notificationAll" : "count0"}>
                 {todos.length}
               </span>
             </li>
-            <li><button className={"active " + activeItems} onClick={()=> showActive()}>Active</button><span className={todos.length - countTodos() > 0 ? "notificationActive" : "count0"}>{todos.length - countTodos()}</span></li>
-            <li><button className={"completed " + completedItems} onClick={()=> showCompleted()}>Completed</button><span className={countTodos() > 0 ? "notificationCompleted" : "count0"}>{countTodos()}</span></li>
+            <li className="list-tab-element">
+              <button className={"active " + activeItems} onClick={()=> showActive()}>Active</button>
+              <span className={todos.length - countTodos() > 0 ? "notificationActive" : "count0"}>{todos.length - countTodos()}</span></li>
+            <li className="list-tab-element">
+              <button className={"completed " + completedItems} onClick={()=> showCompleted()}>Completed</button>
+              <span className={countTodos() > 0 ? "notificationCompleted" : "count0"}>{countTodos()}</span></li>
           </ul>
         </nav>
 
@@ -162,20 +164,20 @@ function App() {
           <ul className="listGroup" >
             {todos.map((todo) => (
               <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "flex" : "none" }}>
-                <label className="containerCheck">
-                  <input type="checkbox" onChange={(e) =>(
-                    (todos[todos.indexOf(todo)].completed = e.target.checked)
-                    ) } checked={todo.completed ? true : false}></input>
-                  <span className="checkmark"></span>
-                </label>
-                <text className={"itemdelista"}>{todo.tarea}</text>
-                <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
-                <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-                </button>
+                  <text className={"itemdelista"}>{todo.tarea}</text>
+                  <label className="containerCheck">
+                    <input type="checkbox" onChange={(e) =>(
+                      (todos[todos.indexOf(todo)].completed = e.target.checked)
+                      ) } checked={todo.completed ? true : false}></input>
+                    <span className="checkmark"></span>
+                  </label>
+                  <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                  <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                  </button>
               </li>
             ))}
           </ul>
-          <div className="botonDelete">
+          <div className="buttonDelete">
           <button type="button" className="buttonDanger" onClick={clearAll}>
           <svg className="deleteAllIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
             Delete all</button>
@@ -185,54 +187,44 @@ function App() {
           : 
           activeItems === "active" ? 
           <>
-          <div className="grupo1">
-            <div className="leftside">
-              <form className="formulario1" onSubmit={handleNewTodo} id="formulario1">
-                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
-              </form>
+            <div className="containerform">
+                <form className="formulario1" onSubmit={handleNewTodo}>
+                  <input type="text" className="inputnormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
+                  <button type="submit" className="buttonAdd" form="formulario1">{addIcon}</button>
+                </form>
             </div>
-            <div className="rightside">
-              <button type="submit" className="button1" form="formulario1">Add</button>
-            </div>
-            
-        </div>
-          <ul className="listGroup" >
-          {todos.map((todo) => (
-            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
-              <label className="containerCheck">
-                <input type="checkbox" onChange={(e) =>(
-                  (todos[todos.indexOf(todo)].completed = e.target.checked)
-                  ) } checked={todo.completed ? true : false}></input>
-                <span class="checkmark"></span>
-              </label>
-              <text className={"itemdelista"}>{todo.tarea}</text>
-            </li>
-          ))}
-        </ul>
+            <ul className="listGroup" >
+            {todos.map((todo) => (
+              <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
+                <text className={"itemdelista"}>{todo.tarea}</text>
+                <label className="containerCheck">
+                    <input type="checkbox" onChange={(e) =>(
+                      (todos[todos.indexOf(todo)].completed = e.target.checked)
+                      ) } checked={todo.completed ? true : false}></input>
+                    <span class="checkmark"></span>
+                  </label>
+              </li>
+            ))}
+          </ul>
         </>
           :
           <>
-          <div className="grupo1">
-            <div className="leftside">
-              <form className="formulario1" onSubmit={handleNewTodo} id="formulario1">
+          <div className="containerform">
+              <form className="formulario1" onSubmit={handleNewTodo}>
                 <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
+                <button type="submit" className="buttonAdd" form="formulario1">{addIcon}</button>
               </form>
-            </div>
-            <div className="rightside">
-              <button type="submit" className="button1" form="formulario1">Add</button>
-            </div>
-            
         </div>
           <ul className="listGroup" >
           {todos.map((todo) => (
             <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
-              <label className="containerCheck">
-                <input type="checkbox" onChange={(e) =>(
-                  (todos[todos.indexOf(todo)].completed = e.target.checked)
-                  ) } checked={todo.completed ? true : false}></input>
-                <span class="checkmark"></span>
-              </label>
               <text className={"itemdelista"}>{todo.tarea}</text>
+              <label className="containerCheck">
+                  <input type="checkbox" onChange={(e) =>(
+                    (todos[todos.indexOf(todo)].completed = e.target.checked)
+                    ) } checked={todo.completed ? true : false}></input>
+                  <span class="checkmark"></span>
+                </label>
             </li>
           ))}
         </ul>

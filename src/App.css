@@ -1,10 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo&family=Montserrat&family=Poppins&display=swap');
 
+body{
+  background-color: rgb(243, 244, 245);
+}
 
 h1{
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   color: #333333;
   padding-top: 30px;
+  font-size: 24px;
+}
+.title{
+  display: block;
+  width: auto;
 }
 li{
   display: inline-block;
@@ -12,57 +21,62 @@ li{
 .container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content:center;
   align-items: center;
+  width: 90vw;
+  margin: auto;
   padding-top: 50px;
 }
+.container1{
+  width: 100%;
+}
+.containerform{
+  display: flex;
+  justify-content: center;
+}
+/* .tabs{
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
 .tabsLista{
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   font-family: Montserrat;
-  width: 40vw;
+  font-size: 0.8rem;
+  margin: 0;
+
 }
-.all{
+.list-tab-element{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 33%;
+  border: solid 1px black;
+}
+.all, .active, .completed{
   padding: 10px; 
-  width: 20vw; 
+  width: 18vw;
   text-align: center;
-  background-color: white; /* Blue background */
-  border: none; /* Remove borders */
-  font-size: 16px; /* Set a font size */
+  background-color: white; 
+  border: none;
+  font-size: 16px;
   cursor: pointer;
   outline: none;
-  border-bottom: solid 1px black;
-}
-.active{
-  padding: 10px; 
-  width: 20vw; 
-  text-align: center;
-  background-color: white; /* Blue background */
-  border: none; /* Remove borders */
-  font-size: 16px; /* Set a font size */
-  cursor: pointer;
-  outline: none;
-  border-bottom: solid 1px black;
-}
-.completed{
-  padding: 10px; 
-  width: 20vw; 
-  text-align: center;
-  background-color: white; /* Blue background */
-  border: none; /* Remove borders */
-  font-size: 16px; /* Set a font size */
-  cursor: pointer;
-  outline: none;
-  border-bottom: solid 1px black;
+  border: solid 1px rgb(141, 141, 141);
 }
 .all-activeTab, .active-activeTab, .completed-activeTab{
   padding: 10px; 
   width: 20vw; 
   text-align: center;
-  background-color: white; /* Blue background */
-  border: none; /* Remove borders */
-  font-size: 16px; /* Set a font size */
+  background-color: white; 
+  border: none; 
+  font-size: 16px; 
   cursor: pointer;
   outline: none;
   font-weight: bold;
@@ -75,118 +89,123 @@ li{
   border-bottom: solid 2px #2F80ED;
   cursor: pointer;
 }
-
-.lista{
+.formulario1{
+  background-color: #FFFFFF;
+  width: calc(50px + 60vw);
   display: flex;
-}
-.lista-active{
-  display: flex;
-}
-.lista-completed{
-  display: flex;
-  text-decoration: line-through;
-  color: #000000;
-}
-.itemdelista{
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
-}
-.grupo1{
-  display: grid;
-  grid-template-columns: auto;
-
-}
-.botonDelete{
-  display: flex;
-  justify-content: flex-end;
-  margin: auto;
-}
-.leftside{
-  grid-row: 1;
-  grid-column: 1/2;
-  width: 30vw;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin: auto;
-}
-.rightside{
-  grid-row: 1;
-  grid-column: 2/3;
-  margin-left: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-}
-.inputNormal{
+  border: solid 1px #828282;
+  border-radius: 4px;
+  outline: none;
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  display: block;
-  width: 25vw;
-  height: 36px;
-  padding-left: 15px;
-  border-radius: 8px;
-  border: solid 1px #828282;
-  outline: none;
+  font-size: 16px;  
+  margin-top: 20px;
+  padding: 4px;
 }
-.button1{
+.inputnormal{
+  border: none;
+  outline: none;
+  width: calc(100% - 16px);
+}
+.lista{
+  display: flex;
+  justify-content: center;
+  width: calc(50px + 60vw);
+  margin: 8px;
+  border-radius: 4px;
+  padding: 6px;
+}
+.lista-items{
+  display: flex;
+  justify-content: space-between;
+}
+.lista-active{
+  display: flex;
+  justify-content: space-between;
+  width: calc(50px + 60vw);
+  background-color: #FFFFFF;
+  border: solid 1px rgb(231, 229, 229);
+  margin: 8px;
+  border-radius: 4px;
+  padding: 6px;
+}
+.lista-completed{
+  display: flex;
+  justify-content: space-between;
+  width: calc(50px + 60vw);
+  text-decoration: line-through;
+  background-color: #FFFFFF;
+  color: #000000;
+  margin: 8px;
+  border-radius: 4px;
+  padding: 6px;
+}
+.itemdelista{
+  background-color: #fff;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #000000;
+  border-radius: 4px;
+  margin: 4px;
+}
+.buttonDelete{
+  display: block;
+  margin: auto;
+}
+.deleteIcon{
+  margin: 0 4px 0 4px;
+}
+.buttonAdd{
   font-family: Montserrat;
   font-style: SemiBold;
-  Font-size: 14px;
-  Line-height: 17px;
-  Line-height: 100%;
-  grid-row: 1;
-  grid-column: 2;
-  width: 100px;
+  Font-size: 16px;
+  width:fit-content;
   height: 36px;
-  border-radius: 8px;
   background-color: #2F80ED;
   color: white;
   border: none;
   outline: none;
+  border-radius: 4px;
 }
-.button1:hover{
+.buttonAdd:hover{
   cursor: pointer;
 }
-.button1:active{
+.buttonAdd:active{
   box-shadow: 0 2px #666;
-  transform: translateY(4px);
+  transform: translateY(2px);
 }
 
 .containerCheck{
-  display: block;
   position: relative;
-  padding-left: 24px;
+  padding-left: 16px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 16px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   grid-row: inherit;
   grid-column: 1/2;
-  width: 5%;
 }
 text{
   grid-column: 2/3;
   width: 80%;
 }
 .close{
-  background-color: white; /* Blue background */
-  border: none; /* Remove borders */
-  font-size: 16px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
+  background-color: white; 
+  border: none; 
+  font-size: 16px; 
+  cursor: pointer; 
 }
 .close:hover{
   transform: translateY(4px);
+}
+.label{
+  display: flex;
 }
 .containerCheck input {
   opacity: 0;
@@ -208,19 +227,16 @@ text{
   background-color: #2196F3;
 }
 
-/* When the checkbox is checked, add a blue background */
 .containerCheck input:checked ~ .checkmark {
   background-color: #2196F3;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .containerCheck input:checked ~ .checkmark:after {
   display: block;
 }
@@ -237,63 +253,67 @@ text{
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.checkbox{
+/* .checkbox{
   margin-right: 10px;
 }
 .far{
   margin-right: 10px;
-}
-ul{
+} */
+ul.listGroup{
   text-decoration: none;
+  margin: auto;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+/*   margin: 0; */
 }
 li{
   text-decoration: none;
   list-style: none;
+  margin-left: 0;
 }
 .buttonDanger{
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px;
-  width:100px;
+  width: calc(50px + 60vw);
   height: 36px;
   background-color: #EB5757;
   border: none;
   border-radius: 6px;
   color: #FFFFFF;
+  margin: auto;
 }
 
 .notificationAll{
   position: relative;
   font-family: Montserrat;
-  font-size: 12px;
+  font-size: 16px;
   top: -50px;
   right: -15vw;
   padding: 8px 10px;
   border-radius: 50%;
-  background-color: #2F80ED;
-  color: white;
 }
 .notificationActive{
   position: relative;
   font-family: Montserrat;
-  font-size: 12px;
+  font-size: 16px;
   top: -50px;
   right: -15vw;
   padding: 8px 10px;
   border-radius: 50%;
-  background-color: #EB5757;
-  color: white;
 }
 .notificationCompleted{
   position: relative;
   font-family: Montserrat;
-  font-size: 12px;
+  font-size: 16px;
   top: -50px;
   right: -15vw;
   padding: 8px 10px;
   border-radius: 50%;
-  background-color: #2fed78;
-  color: white;
 }
 .count0{
   display: none;
@@ -302,9 +322,9 @@ li{
   display: flex;
   justify-content: center;
   margin: auto;
-  position: fixed;
+  padding-top: 30px;
+  position: relative;
   bottom: 0;
-  margin: auto;
   width: 100%;
 }
 .credits{
