@@ -76,6 +76,7 @@ function App() {
     setAllitems("all"); 
     setActiveItems(""); 
     setCompletedItems("")
+
   };
   function showActive(){
     setAllitems(""); 
@@ -132,55 +133,55 @@ function App() {
     <>
     <div className="container">
         <div className="title">
-          <h1>Todo List</h1>
+          <h1>Tareas</h1>
         </div>
 
         <nav className="tabs">
-          <ul className="tabsLista">
-            <li className="list-tab-element">
-              <button className={"all " + allitems} onClick={()=> showAll()}>All</button>
-              <span className={todos.length> 0 ? "notificationAll" : "count0"}>
+
+            <div className={"all-" + allitems} onClick={()=> showAll()}>Todas
+              {/* <button className={"all " + allitems} onClick={()=> showAll()}>All</button> */}
+              {/* <span className={todos.length> 0 ? "notificationAll" : "count0"}>
                 {todos.length}
-              </span>
-            </li>
-            <li className="list-tab-element">
-              <button className={"active " + activeItems} onClick={()=> showActive()}>Active</button>
-              <span className={todos.length - countTodos() > 0 ? "notificationActive" : "count0"}>{todos.length - countTodos()}</span></li>
-            <li className="list-tab-element">
-              <button className={"completed " + completedItems} onClick={()=> showCompleted()}>Completed</button>
-              <span className={countTodos() > 0 ? "notificationCompleted" : "count0"}>{countTodos()}</span></li>
-          </ul>
-        </nav>
-
-        {/* input para agregar tareas*/}
-
-        <div className="container1">
-          
+              </span> */}
+            </div>
+            <div className={"active-" + activeItems} onClick={()=> showActive()}>Activas
+              {/* <button className={"active " + activeItems} onClick={()=> showActive()}>Active</button> */}
+              {/* <span className={todos.length - countTodos() > 0 ? "notificationActive" : "count0"}>{todos.length - countTodos()}</span> */}
+              </div>
+            <div className={"completed-" + completedItems} onClick={()=> showCompleted()}>Terminadas
+             {/*  <button className={"completed " + completedItems} onClick={()=> showCompleted()}>Completed</button> */}
+              {/* <span className={countTodos() > 0 ? "notificationCompleted" : "count0"}>{countTodos()}</span> */}
+              </div>
+        
+        </nav>          
         
         {/* lista de tareas*/}
         {
         completedItems === "completed" ?
         <>
-          <ul className="listGroup" >
+          <div className="listGroup" >
             {todos.map((todo) => (
-              <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "flex" : "none" }}>
+              <div className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "flex" : "none" }}>
                   <text className={"itemdelista"}>{todo.tarea}</text>
-                  <label className="containerCheck">
-                    <input type="checkbox" onChange={(e) =>(
-                      (todos[todos.indexOf(todo)].completed = e.target.checked)
-                      ) } checked={todo.completed ? true : false}></input>
-                    <span className="checkmark"></span>
-                  </label>
-                  <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
-                  <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-                  </button>
-              </li>
+                  <div className="buttons-left">
+                    <label className="containerCheck">
+                      <input type="checkbox" onChange={(e) =>(
+                        (todos[todos.indexOf(todo)].completed = e.target.checked)
+                        ) } checked={todo.completed ? true : false}></input>
+                      <span className="checkmark"></span>
+                    </label>
+                    <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                    <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                    </button>
+                  </div>
+                  
+              </div>
             ))}
-          </ul>
+          </div>
           <div className="buttonDelete">
           <button type="button" className="buttonDanger" onClick={clearAll}>
           <svg className="deleteAllIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-            Delete all</button>
+            Eliminar todas</button>
         </div>
         </> 
           
@@ -189,56 +190,63 @@ function App() {
           <>
             <div className="containerform">
                 <form className="formulario1" onSubmit={handleNewTodo}>
-                  <input type="text" className="inputnormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
+                  <input type="text" className="inputnormal" placeholder={"Agrega una tarea"} onChange={handleNewTodoChange}></input> 
                   <button type="submit" className="buttonAdd" form="formulario1">{addIcon}</button>
                 </form>
             </div>
-            <ul className="listGroup" >
+            <div className="listGroup" >
             {todos.map((todo) => (
-              <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
+              <div className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState} style={{display: todo.completed ? "none" : "flex" }}>
                 <text className={"itemdelista"}>{todo.tarea}</text>
-                <label className="containerCheck">
-                    <input type="checkbox" onChange={(e) =>(
-                      (todos[todos.indexOf(todo)].completed = e.target.checked)
-                      ) } checked={todo.completed ? true : false}></input>
-                    <span class="checkmark"></span>
-                  </label>
-              </li>
+                <div className="buttons-left">
+                    <label className="containerCheck">
+                      <input type="checkbox" onChange={(e) =>(
+                        (todos[todos.indexOf(todo)].completed = e.target.checked)
+                        ) } checked={todo.completed ? true : false}></input>
+                      <span className="checkmark"></span>
+                    </label>
+                    <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                    <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                    </button>
+                  </div>
+                
+              </div>
             ))}
-          </ul>
+          </div>
         </>
           :
           <>
           <div className="containerform">
-              <form className="formulario1" onSubmit={handleNewTodo}>
-                <input type="text" className="inputNormal" placeholder={"Add details"} onChange={handleNewTodoChange}></input> 
-                <button type="submit" className="buttonAdd" form="formulario1">{addIcon}</button>
-              </form>
-        </div>
-          <ul className="listGroup" >
+                <form className="formulario1" onSubmit={handleNewTodo}>
+                  <input type="text" className="inputnormal" placeholder={"Agrega una tarea"} onChange={handleNewTodoChange}></input> 
+                  <button type="submit" className="buttonAdd" form="formulario1">{addIcon}</button>
+                </form>
+            </div>
+          <div className="listGroup" >
           {todos.map((todo) => (
-            <li className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
+            <div className={"lista"+(todo.completed ? "-completed" : "-active")} key={todo.id} onChange={changeState}>
               <text className={"itemdelista"}>{todo.tarea}</text>
-              <label className="containerCheck">
-                  <input type="checkbox" onChange={(e) =>(
-                    (todos[todos.indexOf(todo)].completed = e.target.checked)
-                    ) } checked={todo.completed ? true : false}></input>
-                  <span class="checkmark"></span>
-                </label>
-            </li>
+              <div className="buttons-left">
+                    <label className="containerCheck">
+                      <input type="checkbox" onChange={(e) =>(
+                        (todos[todos.indexOf(todo)].completed = e.target.checked)
+                        ) } checked={todo.completed ? true : false}></input>
+                      <span className="checkmark"></span>
+                    </label>
+                    <button type="button" className="close" aria-label="Close" onClick={() => removeTodo(todo.id)}>
+                    <svg className="deleteIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#BDBDBD"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                    </button>
+                  </div>
+            </div>
           ))}
-        </ul>
+        </div>
          </>
 
-        }
-        
-          </div>
-          
-          
+        }  
         </div>
         <div className="footer">
             <div className="credits">
-              created by <a target="_blank" rel="noreferrer" href="https://devchallenges.io/portfolio/josemamunoz" className="linksexternos">josemamunoz</a> - <a target="_blank" rel="noreferrer" href="https://devchallenges.io/" className="linksexternos">devchallenges.io</a>
+              Created by <a target="_blank" rel="noreferrer" href="https://devchallenges.io/portfolio/josemamunoz" className="linksexternos"> josemamunoz</a> - <a target="_blank" rel="noreferrer" href="https://devchallenges.io/" className="linksexternos">devchallenges.io</a>
             </div>
           </div>
         </>

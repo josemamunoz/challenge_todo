@@ -8,81 +8,113 @@ h1{
   font-family: 'Poppins', sans-serif;
   text-align: center;
   color: #333333;
-  padding-top: 30px;
-  font-size: 24px;
+  font-size: 18px;
 }
 .title{
   display: block;
   width: auto;
 }
-li{
+/* li{
   display: inline-block;
-}
+} */
 .container{
   display: flex;
   flex-direction: column;
   justify-content:center;
   align-items: center;
-  width: 90vw;
+  width: fit-content;
   margin: auto;
   padding-top: 50px;
-}
-.container1{
-  width: 100%;
 }
 .containerform{
   display: flex;
   justify-content: center;
 }
-/* .tabs{
-  width: 80vw;
+.tabs{
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+  width: calc(50px + 60vw);
+}
 
 .tabsLista{
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: calc(50px + 60vw);
   font-family: Montserrat;
-  font-size: 0.8rem;
-  margin: 0;
-
+  font-size: 12px;
+  border: solid 1px rgb(141, 141, 141);
+  border-radius: 4px;
+  background-color: white; 
 }
-.list-tab-element{
+.all-, .active-, .completed-{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  width: 33%;
-  border: solid 1px black;
-}
-.all, .active, .completed{
-  padding: 10px; 
-  width: 18vw;
   text-align: center;
-  background-color: white; 
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  outline: none;
+  width: 100%;
   border: solid 1px rgb(141, 141, 141);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Montserrat;
+  padding: 4px;
+  background-color: white;
 }
-.all-activeTab, .active-activeTab, .completed-activeTab{
+.all-all{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  border: solid 1px rgb(141, 141, 141);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Montserrat;
+  padding: 4px;
+  background-color:  #2F80ED;
+  color: white;
+}
+.active-active{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  border: solid 1px rgb(141, 141, 141);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Montserrat;
+  padding: 4px;
+  background-color:  #2F80ED;
+  color: white;
+}
+.completed-completed{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  border: solid 1px rgb(141, 141, 141);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Montserrat;
+  padding: 4px;
+  background-color:  #2F80ED;
+  color: white;
+}
+/* .all-activeTab, .active-activeTab, .completed-activeTab{
   padding: 10px; 
-  width: 20vw; 
+  margin: auto;
   text-align: center;
   background-color: white; 
   border: none; 
-  font-size: 16px; 
+  font-size: 12px; 
   cursor: pointer;
   outline: none;
   font-weight: bold;
   color: #2F80ED;
-  border-bottom: solid 3px #2F80ED;
-}
+} */
 
 .all:hover, .active:hover, .completed:hover{
   color: #2F80ED;
@@ -99,14 +131,19 @@ li{
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;  
+  font-size: 12px;  
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 4px;
 }
 .inputnormal{
   border: none;
   outline: none;
   width: calc(100% - 16px);
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;  
 }
 .lista{
   display: flex;
@@ -119,10 +156,12 @@ li{
 .lista-items{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .lista-active{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: calc(50px + 60vw);
   background-color: #FFFFFF;
   border: solid 1px rgb(231, 229, 229);
@@ -132,6 +171,8 @@ li{
 }
 .lista-completed{
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   justify-content: space-between;
   width: calc(50px + 60vw);
   text-decoration: line-through;
@@ -146,23 +187,26 @@ li{
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 22px;
   color: #000000;
   border-radius: 4px;
   margin: 4px;
 }
+.buttons-left{
+  display: flex;
+  align-items: center;
+
+}
 .buttonDelete{
   display: block;
   margin: auto;
-}
-.deleteIcon{
-  margin: 0 4px 0 4px;
+  margin-top: 20px;
 }
 .buttonAdd{
   font-family: Montserrat;
   font-style: SemiBold;
-  Font-size: 16px;
+  Font-size: 12px;
   width:fit-content;
   height: 36px;
   background-color: #2F80ED;
@@ -183,7 +227,7 @@ li{
   position: relative;
   padding-left: 16px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -191,14 +235,11 @@ li{
   grid-row: inherit;
   grid-column: 1/2;
 }
-text{
-  grid-column: 2/3;
-  width: 80%;
-}
-.close{
+
+button.close{
   background-color: white; 
   border: none; 
-  font-size: 16px; 
+  font-size: 12px; 
   cursor: pointer; 
 }
 .close:hover{
@@ -217,14 +258,16 @@ text{
   position: absolute;
   top: 0;
   left: 0;
-  height: 24px;
-  width: 24px;
+  height: 16px;
+  width: 16px;
   border: solid 1px #828282;
   border-radius: 4px;
+
 }
-/* On mouse-over, add a grey background color */
+/* On mouse-over, add a blue background color */
 .containerCheck:hover input ~ .checkmark {
   background-color: #2196F3;
+  
 }
 
 .containerCheck input:checked ~ .checkmark {
@@ -243,9 +286,20 @@ text{
 
 /* Style the checkmark/indicator */
 .containerCheck .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
+  left: 4px;
+  top: 0;
+  width: 3px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.containerCheck:hover ~ .checkmark:after {
+  left: 4px;
+  top: 0;
+  width: 3px;
   height: 10px;
   border: solid white;
   border-width: 0 3px 3px 0;
@@ -259,7 +313,7 @@ text{
 .far{
   margin-right: 10px;
 } */
-ul.listGroup{
+.listGroup{
   text-decoration: none;
   margin: auto;
   list-style-type: none;
@@ -269,11 +323,11 @@ ul.listGroup{
   align-items: center;
 /*   margin: 0; */
 }
-li{
+/* li{
   text-decoration: none;
   list-style: none;
   margin-left: 0;
-}
+} */
 .buttonDanger{
   display: flex;
   align-items: center;
@@ -300,7 +354,7 @@ li{
 .notificationActive{
   position: relative;
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 12px;
   top: -50px;
   right: -15vw;
   padding: 8px 10px;
@@ -309,7 +363,7 @@ li{
 .notificationCompleted{
   position: relative;
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 12px;
   top: -50px;
   right: -15vw;
   padding: 8px 10px;
@@ -320,10 +374,10 @@ li{
 }
 .footer{
   display: flex;
+  position: relative;
   justify-content: center;
   margin: auto;
   padding-top: 30px;
-  position: relative;
   bottom: 0;
   width: 100%;
 }
